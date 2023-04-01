@@ -24,6 +24,5 @@ for (let  i=0; i<products.length; i++){
     sum += products[i].price;
 }
 avr = sum/products.length;
-
-console.log(`łączna cena produktów: ${sum}`);
-console.log(`średnia cena produktu: ${avr}`);
+console.log(`łączna cena produktów: ${sum} \nśrednia cena produktu: ${avr}`);
+// console.log(`średnia cena produktu: ${avr}`);
