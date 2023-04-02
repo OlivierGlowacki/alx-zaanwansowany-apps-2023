@@ -1,71 +1,53 @@
-// Za pomoca kodu JS wykonaj następujące zadania.
-// Pamietaj, aby elementom HTML dodawac ID.
 
-// 1. W konsoli wypisz obecny tekst przycisku
-// 2. dodaj formularzowi klase my-form
-// 3. Za pomoca JS dodaj do inputow jakis tekst
-// 4. do elementu ul dodaj element li
-{/* <li>
-      <strong>Ada</strong> napisala
-      <p> Super dzien. Duzo sie nauczylam </p>
-    </li> */}
+// Eventy
 
-// 5.  Majac tablice obiektow messages, za pomoca petli dodaj do ul kilka elementow li
+// Glowne Eventy:
 
-// const messages = [
-//   {
-//     author: 'Pawel',
-//     message: 'Ale dzisiaj super dzien'
-//   },
-//   {
-//     author: "Magda",
-//     message: "Zimno jest"
-//   }
-// ]
+// click
+// submit
 
-// ---------------- 1
-console.log(document.querySelector('#button').innerText);
+// Wzor eventu
+
+// const handleTitleClick = () => {
+//   console.log('h1 zostal klikniety');
+// }
+
+// title.addEventListener('click', handleTitleClick);
 
 
-// ---------------- 2
-document.querySelector('form').classList.add('my-form');
+const messageForm = document.querySelector('#messageForm');
+const nameInput = document.querySelector('#nameInput');
+const messageInput = document.querySelector('#messageInput');
+const list = document.querySelector('#list');
 
-// ---------------- 3
-const input1 = document.querySelector('#imie');
-const input2 = document.querySelector('#wiadomosc');
-input1.value = 'Kris';
-input2.value = 'lubi piwo bezalkoholowe!?!?!';
+// event jest to wbudowany obiekt, ktory przetrzymuje informacji o wykonanym zdarzeniu
+const handleSubmit = (event) => {
+  // event.preventDefault() powoduje zatrzymanie domyslnej akcji przegladarki jaka jest wyslanie formularza.
+  event.preventDefault();
 
-// ---------------- 4
-const ul = document.querySelector('#list')
-ul.innerHTML += `
-<li>
-    <strong>Ada</strong> napisala
-    <p> Super dzien. Duzo sie nauczylam </p>
-</li>
-`
+  // 1. Pobranie wartosci z inputow
+  // console.log(nameInput.value)
+  // console.log(messageInput.value);
 
-// --------------- 5
-const messages = [
-    {
-        author: 'Pawel',
-        message: 'Ale dzisiaj super dzien'
-    },
-    {
-        author: "Magda",
-        message: "Zimno jest"
-    }
-]
-
-const addText = (item) => {
-    ul.innerHTML += `
+  // 2. Dodanie nowego elementu do HTML
+  list.innerHTML += `
     <li>
-        <strong>${item.author}</strong> napisal/a
-        <p> ${item.message} </p>
+      <strong> ${nameInput.value} </strong> napisal
+      <p> ${messageInput.value} </p>
     </li>
-    `
+  `
+
+  nameInput.value = '';
+  messageInput.value = '';
 }
 
-messages.forEach(element => {
-    addText(element);
-});
+messageForm.addEventListener('submit', handleSubmit);
+
+
+// Cwiczenie dla was:
+
+// w HTML jest guzik "usun wszystkie elementy". Dodaj event, ktory po wcisnieciu guzika, usunie wszystkie elementy listy. UWAGA: po usunieciu listy, powinienem dalej moc dodawac nowe elementy
+const clearList = () => {
+    list.innerHTML = '';
+}
+document.querySelector('#clear').addEventListener('click', clearList);
