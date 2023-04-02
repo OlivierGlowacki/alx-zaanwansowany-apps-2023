@@ -81,13 +81,24 @@ const products = [
   }
 ]
 
-let sum = 0;
-for (product of products) {
-    if (product.category == 'fruits'){
-        sum += product.price;
-    }
-}
-console.log(`Suma produktów z kategorii owoce to ${sum}`);
+const checkProduct = (product) => {
+    return product.category === "fruits";
+} 
+
+const result = products.filter(checkProduct);
+sum = 0;
+result.forEach(product => {
+    sum += product.price;
+})
+console.log(sum);
+
+// let sum = 0;
+// for (product of products) {
+//     if (product.category == 'fruits'){
+//         sum += product.price;
+//     }
+// }
+// console.log(`Suma produktów z kategorii owoce to ${sum}`);
 
 // 4. Napisz funkcje sumProducts, ktora przyjmie tablice obiektow products z zadania 3, a nastepnie zwroci sume wszystkich produktow
   const sumProducts = (table) => {
