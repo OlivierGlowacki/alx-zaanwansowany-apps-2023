@@ -27,7 +27,8 @@ const renderApartments = apartments => {
         <h3> ${apartment.title} </h3>
         <p> Cena ${apartment.price}zł </p>
         <p> Data dodania ${apartment.publication_date} </p>
-        <a href="/detail.html?id=${apartment.id}"> Przejdz do mieszkania > </a>
+        <p><a href="/detail.html?id=${apartment.id}"> Przejdz do mieszkania > </a></p>
+        <p><a href="/edit.html?id=${apartment.id}"> Edytuj ogłoszenie > </a></p>
       </li>
     `
   })
