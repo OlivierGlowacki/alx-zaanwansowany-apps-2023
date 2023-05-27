@@ -1,26 +1,39 @@
-import { getApartment } from "./shared/apartments";
-import getIdFromSearchParams from "./shared/helpers"
+import { editApartment, getApartment } from "./shared/apartments";
+import getIdFromSearchParams from "./shared/helpers";
+import { getUser } from "./shared/user";
 
-const form = document.querySelector("form");
-const submitButton = document.querySelector("#submit");
+const user = getUser();
 
-const apartmentId = getIdFromSearchParams(window.location.search)
+const editApartmentForm = document.querySelector('#editApartmentForm');
 
-const renderApartment = (apartment) => {
+const apartmentId = getIdFromSearchParams(window.location.search);
 
-    form.elements.title.value = apartment.title;
-    form.elements.description.value = apartment.description;
-    form.elements.price.value = apartment.price;
-    form.elements.date.value = apartment.publication_date;
+const renderApartmentDataToForm = (apartment) => {
+  editApartmentForm.elements.title.value = apartment.title;
+  editApartmentForm.elements.description.value = apartment.description;
+  editApartmentForm.elements.price.value = apartment.price;
+  editApartmentForm.elements.publication_date.value = apartment.publication_date;
+}
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+
+  const editedApartment = {
+    title: editApartmentForm.elements.title.value,
+    description: editApartmentForm.elements.description.value,
+    price: editApartmentForm.elements.price.value,
+    publication_date: editApartmentForm.elements.publication_date.value
+  }
+
+  editApartment(editedApartment, apartmentId)
+    .then(() => {
+      window.location.href = '/index.html'
+    })
 }
 
 getApartment(apartmentId)
   .then(apartment => {
-    renderApartment(apartment)
+    renderApartmentDataToForm(apartment)
   })
 
-const submitHandler = event => {
-    event.preventDefault();
-}
-
-submitButton.addEventListener("submit", submitHandler);
+editApartmentForm.addEventListener('submit', handleSubmit)

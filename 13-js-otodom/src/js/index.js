@@ -1,4 +1,7 @@
 import { getApartments } from "./shared/apartments";
+import { getUser } from "./shared/user";
+
+const user = getUser();
 
 const list = document.querySelector('#apartmentsList');
 
@@ -22,13 +25,17 @@ const multiply = a => a * 2;
 
 const renderApartments = apartments => {
   apartments.forEach(apartment => {
+    // Obsluga obrazkow: https://refine.dev/blog/how-to-base64-upload/
     list.innerHTML += `
       <li>
         <h3> ${apartment.title} </h3>
         <p> Cena ${apartment.price}zł </p>
         <p> Data dodania ${apartment.publication_date} </p>
-        <p><a href="/detail.html?id=${apartment.id}"> Przejdz do mieszkania > </a></p>
-        <p><a href="/edit.html?id=${apartment.id}"> Edytuj ogłoszenie > </a></p>
+        <a href="/detail.html?id=${apartment.id}"> Przejdz do mieszkania > </a>
+        <p><a href="/edit.html?id=${apartment.id}"> Przejdz do edycji mieszkania > </a></p>
+        ${
+          apartment.photos && apartment.photos[0] ? `<img src="${apartment.photos[0].image}">` : ''
+        }
       </li>
     `
   })
